@@ -9,10 +9,11 @@ async function main(context) {
     logger.level = config.logging;
     logger.debug('main', config);
     try {
-        mkdirp('tmp1');
+        mkdirp('tmp');
         const docker = new Docker();
+        logger.debug('1');
         const output = await docker.listContainers();
-        logger.debug(output);
+        logger.debug({output});
     } catch (err) {
         console.error(err);
     } finally {
