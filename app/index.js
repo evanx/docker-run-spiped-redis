@@ -1,7 +1,7 @@
 
 const clc = require('cli-color');
 const mkdirp = require('mkdirp');
-const Docker = require('dockerode');
+const Docker = require('dockerode-promise');
 require('../components/redisCliApp')(require('./config')).then(main);
 
 async function main(context) {
@@ -12,10 +12,8 @@ async function main(context) {
         mkdirp('tmp');
         const docker = new Docker();
         logger.debug('1');
-        const output = await docker.listContainers({all: true}, (err, containers) => {
-            logger.debug({err, containers});
-        });
-        logger.debug({output});
+        const containers = await docker.listContainers({all: false});
+        logger.debug(`${containers.length}`);
     } catch (err) {
         console.error(err);
     } finally {

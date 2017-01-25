@@ -9,8 +9,8 @@ Utility to shell out Docker commands to run a test Redis instance with an encryp
 
 See `app/config.js`
 ```javascript
-    port: {
-        description: 'the exposed spiped-encrypted port',
+    encryptPort: {
+        description: 'the spiped encrypt port',
         default: 6444
     }
 ```
