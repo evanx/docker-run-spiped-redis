@@ -1,74 +1,45 @@
-# scan-hkeys
+# docker-run-spiped-redis
 
-Containerized utility to scan Redis keys and print hkeys of any hashes.
+Utility to shell out Docker commands to run a test Redis instance with an encrypted connection via spiped.
 
-<img src='https://raw.githubusercontent.com/evanx/scan-hkeys/master/docs/readme/images/options.png'>
+<img src='https://raw.githubusercontent.com/evanx/docker-run-spiped-redis/master/docs/readme/images/options.png'>
 
 
 ## Config
 
 See `app/config.js`
 ```javascript
-    pattern: {
-        description: 'the matching pattern for Redis scan',
-        example: '*'
-    },
     port: {
-        description: 'the Redis port',
-        default: 6379
-    },
-    host: {
-        description: 'the Redis host',
-        default: 'localhost'
-    },
+        description: 'the exposed spiped-encrypted port',
+        default: 6444
+    }
 ```
-where the default Redis `host` is `localhost`
 
 ## Implementation
 
 See `app/index.js`
 ```javascript
-    let cursor;
-    while (true) {
-        const [result] = await multiExecAsync(client, multi => {
-            multi.scan(cursor || 0, 'match', config.pattern);
-        });
-        cursor = parseInt(result[0]);
-        const keys = result[1];
-        const types = await multiExecAsync(client, multi => {
-            keys.forEach(key => multi.type(key));
-        });
-        const hashesKeys = keys.filter((key, index) => types[index] === 'hash');
-        if (hashesKeys.length) {
-            count += hashesKeys.length;
-            const results = await multiExecAsync(client, multi => {
-                hashesKeys.forEach(key => multi.hkeys(key));
-            });
-            hashesKeys.forEach((key, index) => {
-                const result = results[index];
-                console.log(`${clc.cyan(key)} ${result.join(' ')}`);
-            });
 ```
 
 ## Development
 
 For development, you can run as follows:
 ```
-git clone https://github.com/evanx/scan-hkeys.git
+git clone https://github.com/evanx/docker-run-spiped-redis.git
 cat package.json
 npm install
-pattern='*' npm start
+npm start
 ```
 
 ## Docker
 
 ```shell
-docker build -t scan-hkeys https://github.com/evanx/scan-hkeys.git
+docker build -t docker-run-spiped-redis https://github.com/evanx/docker-run-spiped-redis.git
 ```
-where tagged as image `scan-hkeys`
+where tagged as image `docker-run-spiped-redis`
 
 ```shell
-docker run --network=host -e pattern='*' scan-hkeys
+docker run --network=host -e pattern='*' docker-run-spiped-redis
 ```
 where `--network-host` connects the container to your `localhost` bridge. The default Redis host `localhost` works in that case.
 
@@ -90,35 +61,6 @@ CMD ["node", "--harmony", "app/index.js"]
 
 See scripts/demo.sh
 ```shell
-docker network create -d bridge test-hkeys-network
-container=`docker run --network=test-hkeys-network \
-  --name test-hkeys-redis -d tutum/redis`
-password=`docker logs $container | grep '^\s*redis-cli -a' |
-  sed -e 's/^\s*redis-cli -a \(\w*\) .*$/\1/'`
-redisHost=`docker inspect $container |
-  grep '"IPAddress":' | tail -1 | sed 's/.*"\([0-9\.]*\)",/\1/'`
-redis-cli -a $password -h $redisHost hset mytest:64:h name 'Pottery Place'
-redis-cli -a $password -h $redisHost hset mytest:64:h address '48 High Street'
-docker run --network=test-hkeys-network \
-  -e host=$redisHost -e password=$password \
-  -e pattern=mytest:*:h evanxsummers/scan-hkeys
-docker rm -f `docker ps -q -f name=test-hkeys-redis`
-docker network rm test-hkeys-network
-```
-where we create an isolated Redis container and use `redis-cli` to create hashes with the following two fields:
-```
-redis-cli -a $password -h $redisHost hset mytest:64:h name 'Pottery Place'
-redis-cli -a $password -h $redisHost hset mytest:64:h address '48 High Street'
-```
-and invoke the utility from the Dockerhub image `evanxsummers/scan-hkeys`
-```
-docker run --network=test-hkeys-network \
-  -e host=$redisHost -e password=$password \
-  -e pattern=mytest:*:h evanxsummers/scan-hkeys
-```
-which prints a line for the key with its two field names from `hkeys`
-```
-mytest:64:h name address
 ```
 
 https://twitter.com/@evanxsummers

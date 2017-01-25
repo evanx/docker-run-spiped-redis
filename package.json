@@ -1,7 +1,7 @@
 {
-  "name": "hget",
+  "name": "docker-run-spiped-redis",
   "version": "0.1.0",
-  "description": "",
+  "description": "Utility to shell out Docker commands to run a test Redis instance with an encrypted connection via spiped.",
   "main": "app/index.js",
   "scripts": {
     "lint": "eslint --cache src",
@@ -21,10 +21,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/evanx/hget.git"
+    "url": "git+https://github.com/evanx/docker-run-spiped-redis.git"
   },
   "bugs": {
-    "url": "https://github.com/evanx/hget/issues"
+    "url": "https://github.com/evanx/docker-run-spiped-redis/issues"
   },
-  "homepage": "https://github.com/evanx/hget#readme"
+  "homepage": "https://github.com/evanx/docker-run-spiped-redis#readme"
 }
