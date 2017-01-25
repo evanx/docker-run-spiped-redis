@@ -1,31 +1,16 @@
 
 module.exports = {
     required: {
-        pattern: {
-            description: 'the matching pattern for Redis scan',
-            example: '*'
-        },
-        limit: {
-            default: 30,
-            description: 'the maximum number of keys to print',
-            note: 'zero means unlimited'
-        },
         port: {
-            default: 6379,
-            description: 'the Redis host port'
+            description: 'the spiped-encrypted port',
+            default: 6444,
         },
-        host: {
-            default: 'localhost',
-            description: 'the Redis host address'
-        },
-        password: {
-            required: false,
-            description: 'the Redis host password'
-        },
-        logging: {
-            default: 'info',
-            description: 'the logging level'
-        },
+        key: {
+            description: 'the spiped key in base64'
+        }
+    },
+    default: {
+        logging: 'info'
     },
     development: {
         logging: 'debug'
