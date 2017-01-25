@@ -23,7 +23,9 @@ async function main(context) {
     }
 }
 
+
 async function end() {
     logger.info('end');
+
     client.quit();
 }

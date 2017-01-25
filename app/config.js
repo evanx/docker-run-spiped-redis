@@ -1,13 +1,15 @@
 
 module.exports = {
     required: {
-        port: {
-            description: 'the spiped-encrypted port',
+        encryptPort: {
+            description: 'the spiped encrypt port',
             default: 6444,
         }
     },
     default: {
-        logging: 'info'
+        logging: 'info',
+        host: 'localhost',
+        port: 6379
     },
     development: {
         logging: 'debug'
