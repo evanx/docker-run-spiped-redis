@@ -12,7 +12,7 @@ async function main(context) {
         mkdirp('tmp1');
         const docker = new Docker();
         const output = await docker.listContainers();
-        console.log(output);
+        logger.debug(output);
     } catch (err) {
         console.error(err);
     } finally {
