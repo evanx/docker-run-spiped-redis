@@ -14,15 +14,16 @@ async function main(context) {
         logger.debug('1');
         const output = await docker.listContainers({all: true}, (err, containers) => {
             logger.debug({err, containers});
-            //end();
         });
         logger.debug({output});
     } catch (err) {
         console.error(err);
     } finally {
+        end();
     }
 }
 
 async function end() {
+    logger.info('end');
     client.quit();
 }
