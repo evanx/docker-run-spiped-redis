@@ -13,6 +13,6 @@ do
     redis-cli lpush $ns:res $file
     ls -l tmp/$file
     head tmp/$file
-    echo $ns:adv $file 
+    echo $ns:res $file 
   fi
 done
