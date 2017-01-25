@@ -1,8 +1,10 @@
 
   mkdir -p tmp
+  git pull
   cp app/*js tmp/.
   redis-cli del restart:adv
   node --harmony tmp/index.js
+
   while true
   do
     name=`redis-cli brpop restart:adv 10`
