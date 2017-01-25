@@ -6,6 +6,7 @@
     then 
       date +%T
       head tmp/index.js
-      node tmp/index.js
+      node -v
+      node --harmony tmp/index.js
     fi
   done

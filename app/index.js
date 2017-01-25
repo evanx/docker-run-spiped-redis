@@ -3,7 +3,7 @@ const clc = require('cli-color');
 const mkdirp = require('mkdirp');
 const Docker = require('dockerode-promise');
 require('../components/redisCliApp')(require('./config')).then(main);
-dfdf
+
 async function main(context) {
     Object.assign(global, context);
     logger.level = config.logging;
