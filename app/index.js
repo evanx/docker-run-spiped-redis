@@ -13,7 +13,9 @@ async function main(context) {
         const docker = new Docker();
         logger.debug('1');
         const containers = await docker.listContainers({all: false});
-        logger.debug(`${containers.length}`);
+        logger.debug(`${containers.length}`, containers.map(container => {
+            return container.Name;
+        }));
     } catch (err) {
         console.error(err);
     } finally {
