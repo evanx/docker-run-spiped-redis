@@ -1,9 +1,11 @@
 
+  mkdir -p tmp
+  cp app/*js tmp/.
   while true
-  do 
+  do
     name=`redis-cli brpop restart:adv 10`
     if [ -n "$name"]
-    then 
+    then
       date +%T
       head tmp/index.js
       node -v
