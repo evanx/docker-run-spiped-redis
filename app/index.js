@@ -14,7 +14,11 @@ async function main(context) {
         logger.debug('1');
         const containers = await docker.listContainers({all: false});
         logger.debug(`${containers.length}`, containers.map(container => {
-            return container.Name;
+            return container.Names[0];
+        }));
+        const networks = await docker.listNetworks();
+        logger.debug(`${networks.length}`, networks.map(network => {
+            return network.Name;
         }));
     } catch (err) {
         console.error(err);
