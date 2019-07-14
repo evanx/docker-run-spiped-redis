@@ -16,11 +16,12 @@
     "cli-color": "^1.1.0",
     "dockerode": "^2.3.1",
     "dockerode-promise": "^0.1.0",
+    "lodash": "^4.17.14",
     "mkdirp": "^0.5.1",
     "redis": "^2.6.5"
   },
   "devDependencies": {
-    "eslint": "^6.0.0"
+    "eslint": "^6.0.1"
   },
   "repository": {
     "type": "git",
