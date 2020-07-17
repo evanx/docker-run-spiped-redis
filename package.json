@@ -16,7 +16,7 @@
     "cli-color": "^1.1.0",
     "dockerode": "^2.3.1",
     "dockerode-promise": "^0.1.0",
-    "lodash": "^4.17.14",
+    "lodash": "^4.17.19",
     "mkdirp": "^0.5.1",
     "redis": "^2.6.5"
   },
